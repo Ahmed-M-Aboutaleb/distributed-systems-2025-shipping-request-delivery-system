@@ -1,0 +1,40 @@
+{
+  "name": "distributed-systems-2025-shipping-request-delivery-system",
+  "version": "1.0.0",
+  "description": "A Distributed Shipping Request and Delivery System built for a Distributed Systems and Cloud Computing course project. This system allows merchants to register, log in, and request deliveries by specifying package details (size, weight, address). Delivery personnel can view and update assigned deliveries (statuses include Picked Up and Delivered). Designed using Domain Driven Design principles for clear separation of business logic and infrastructure concerns.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "build": "tsc",
+    "lint": "eslint 'src/**/*.{ts,tsx,js,jsx}'"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.ts": "eslint --fix"
+  },
+  "keywords": [
+    "domain-driven-design"
+  ],
+  "author": "Ahmed-M-Aboutaleb",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.15.3",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "eslint": "^9.26.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.1",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.8.3"
+  }
+}
