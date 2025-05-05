@@ -1,0 +1,91 @@
+import express from "express";
+import dotenv from "dotenv";
+import cors from "cors";
+import helmet from "helmet";
+import connectDatabase from "@infrastructure/database/database";
+
+// Routes
+import { setupMerchantRoutes } from "@interfaces/http/merchant.route";
+
+// Controllers
+import MerchantController from "@interfaces/controllers/merchant.controller";
+
+// Services
+import AuthService from "@application/services/auth.service";
+
+// Repositories
+import MerchantRepository from "@infrastructure/repositories/merchant.repository";
+
+// Load environment variables
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware
+app.use(express.json());
+app.use(cors());
+app.use(helmet());
+
+async function initializeApp() {
+  try {
+    // Connect to MongoDB
+    const mongoUri: string = process.env.MONGODB_URI || "";
+    const dbName: string = process.env.DB_NAME || "shipping_db";
+
+    const db = await connectDatabase(mongoUri, dbName);
+
+    // Initialize repositories
+    const merchantRepository = new MerchantRepository(db);
+
+    // Initialize services
+    const authService = new AuthService(merchantRepository);
+
+    // Initialize controllers
+    const merchantController = new MerchantController(
+      authService,
+      merchantRepository
+    );
+
+    // Setup routes
+    const apiRouter = express.Router();
+
+    // Apply merchant routes to the router
+    setupMerchantRoutes(apiRouter, merchantController);
+
+    // Register the router with the app
+    app.use("/api", apiRouter);
+
+    // Base route
+    app.get("/", (req, res) => {
+      res.send("Shipping Request and Delivery System API");
+    });
+
+    // Global error handler
+    app.use(
+      (
+        err: Error,
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+      ) => {
+        console.error(err.stack);
+        res.status(500).json({
+          success: false,
+          message: "Something went wrong!",
+        });
+      }
+    );
+
+    // Start the server
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Failed to initialize application:", error);
+    process.exit(1);
+  }
+}
+
+// Start the application
+initializeApp();

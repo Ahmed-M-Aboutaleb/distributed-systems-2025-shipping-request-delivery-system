@@ -2,7 +2,7 @@ import { Db, MongoClient } from "mongodb";
 
 let client: MongoClient;
 
-export async function connectDatabase(
+export default async function connectDatabase(
   uri: string,
   dbName: string
 ): Promise<Db> {
