@@ -1,3 +1,5 @@
+import IAddress from "../interfaces/IAddress";
+
 class Address {
   private readonly _apartment?: string;
   private readonly _street: string;
@@ -78,7 +80,7 @@ class Address {
     );
   }
 
-  toJSON(): object {
+  toJSON(): IAddress {
     return {
       apartment: this._apartment,
       street: this._street,
