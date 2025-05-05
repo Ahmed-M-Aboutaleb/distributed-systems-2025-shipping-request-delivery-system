@@ -139,10 +139,11 @@ class Merchant {
   }
   toJSON(): IMerchant {
     return {
-      id: this._id,
+      _id: this._id,
       name: this._name,
       email: this._email,
       companyName: this._companyName,
+      passwordHash: this._passwordHash,
       phoneNumber: this._phoneNumber,
       businessAddress: this._businessAddress.toJSON(),
       isActive: this._isActive,
