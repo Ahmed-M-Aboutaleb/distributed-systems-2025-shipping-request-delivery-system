@@ -2,7 +2,7 @@ import { ObjectId } from "mongodb";
 import IAddress from "./IAddress";
 
 interface IMerchant {
-  id: ObjectId;
+  _id: ObjectId;
   name: string;
   email: string;
   passwordHash?: string;
