@@ -52,15 +52,10 @@ class MerchantRepository {
   }
 
   private mapToEntity(data: any): Merchant {
-    const address = new Address(
-      data.businessAddress.street,
-      data.businessAddress.city,
-      data.businessAddress.state,
-      data.businessAddress.zipCode,
-      data.businessAddress.country,
-      data.businessAddress.apartment
-    );
-
+    const address = Address.fromDocumant(data.businessAddress);
+    if (!address) {
+      throw new Error("Invalid address data");
+    }
     return Merchant.fromDocument({
       ...data,
       businessAddress: address,
