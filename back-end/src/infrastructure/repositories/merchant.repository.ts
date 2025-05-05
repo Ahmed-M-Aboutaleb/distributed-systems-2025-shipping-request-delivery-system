@@ -1,5 +1,5 @@
 import { Collection, Db, ObjectId } from "mongodb";
-import Merchant from "@domain/entities/Merchant";
+import Merchant from "@/domain/entities/merchant.entity";
 import Address from "@domain/value-objects/Address";
 class MerchantRepository {
   private collection: Collection;
