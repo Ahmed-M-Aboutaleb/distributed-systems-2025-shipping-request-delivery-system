@@ -1,5 +1,6 @@
 import Address from "@domain/value-objects/Address";
 import { ObjectId } from "mongodb";
+import IMerchant from "../interfaces/IMerchant";
 
 class Merchant {
   private readonly _id: ObjectId;
@@ -136,7 +137,7 @@ class Merchant {
     // TODO: Implement password hashing and comparison logic
     return this._passwordHash === plainPassword;
   }
-  toJSON(): object {
+  toJSON(): IMerchant {
     return {
       id: this._id,
       name: this._name,
