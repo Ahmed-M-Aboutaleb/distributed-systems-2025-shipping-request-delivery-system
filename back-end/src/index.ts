@@ -2,10 +2,11 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
+import "reflect-metadata";
 import connectDatabase from "@infrastructure/database/database";
 
 // Routes
-import { setupMerchantRoutes } from "@interfaces/http/merchant.route";
+import { setupMerchantRoutes } from "@interfaces/http/routes/merchant.route";
 
 // Controllers
 import MerchantController from "@interfaces/controllers/merchant.controller";
