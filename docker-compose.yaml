@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./db:/db
+    networks:
+      - app-network
+
+volumes:
+  db:
+    driver: local
+
+networks:
+  app-network:
+    driver: bridge

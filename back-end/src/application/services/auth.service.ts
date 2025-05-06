@@ -5,8 +5,21 @@ import bcrypt from "bcrypt";
 import EmailAlreadyExistsError from "../errors/email-already-exists.error";
 import DatabaseServerError from "../errors/database-server.error";
 import Address from "@domain/value-objects/Address";
+
+interface ILoginRequest {
+  email: string;
+  password: string;
+}
+
+interface ILoginResponse {
+  token: string;
+  user: IMerchant;
+}
+
 class AuthService {
   constructor(private merchantRepository: MerchantRepository) {}
+
+  async login() {}
 
   async registerMerchant(merchantData: IMerchant) {
     await this.validateEmailAvailability(merchantData.email);

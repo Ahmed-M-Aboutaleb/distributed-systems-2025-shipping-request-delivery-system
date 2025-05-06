@@ -18,7 +18,7 @@ class MerchantController {
   async registerMerchant(req: Request, res: Response) {
     try {
       const merchantData = req.body;
-      // TODO: Validate merchantData here using DTO
+      req.body.passwordHash = req.body.password;
       const newMerchant = await this.authService.registerMerchant(merchantData);
       return res.status(201).json(newMerchant.toJSON());
     } catch (error) {
