@@ -1,6 +1,7 @@
 import { ObjectId } from "mongodb";
 import ShipmentStatus from "../enums/shipment-status";
 import Address from "../value-objects/Address";
+import PackageDetails from "../value-objects/PackageDetails";
 
 class ShippingRequest {
   private readonly _id: ObjectId;
@@ -11,6 +12,7 @@ class ShippingRequest {
   private _pickupTime: Date;
   private _dropoffTime: Date;
   private _status: ShipmentStatus;
+  private _packageDetails: PackageDetails;
   private _createdAt: Date;
   private _updatedAt: Date;
 
@@ -23,6 +25,7 @@ class ShippingRequest {
     pickupTime: Date,
     dropoffTime: Date,
     status: ShipmentStatus = ShipmentStatus.PENDING,
+    packageDetails: PackageDetails,
     createdAt: Date = new Date(),
     updatedAt: Date = new Date()
   ) {
@@ -34,6 +37,7 @@ class ShippingRequest {
     this._pickupTime = pickupTime;
     this._dropoffTime = dropoffTime;
     this._status = status;
+    this._packageDetails = packageDetails;
     this._createdAt = createdAt;
     this._updatedAt = updatedAt;
   }
@@ -108,6 +112,14 @@ class ShippingRequest {
     this._updatedAt = new Date();
   }
 
+  get packageDetails(): PackageDetails {
+    return this._packageDetails;
+  }
+
+  set packageDetails(value: PackageDetails) {
+    this._packageDetails = value;
+  }
+
   get createdAt(): Date {
     return this._createdAt;
   }
@@ -134,6 +146,7 @@ class ShippingRequest {
       pickupTime: this._pickupTime,
       dropoffTime: this._dropoffTime,
       status: this._status,
+      packageDetails: this._packageDetails.toJSON(),
       createdAt: this._createdAt,
       updatedAt: this._updatedAt,
     };
@@ -149,6 +162,7 @@ class ShippingRequest {
       new Date(json.pickupTime),
       new Date(json.dropoffTime),
       json.status,
+      PackageDetails.fromJSON(json.packageDetails),
       new Date(json.createdAt),
       new Date(json.updatedAt)
     );
