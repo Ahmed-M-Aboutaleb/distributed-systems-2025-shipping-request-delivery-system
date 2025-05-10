@@ -1,12 +1,13 @@
 import { ObjectId } from "mongodb";
 import ShipmentStatus from "../enums/shipment-status";
+import Address from "../value-objects/Address";
 
 class ShippingRequest {
   private readonly _id: ObjectId;
   private _deliveryPersonId: ObjectId | null;
   private _merchantId: ObjectId | null;
-  private _pickupLocation: string;
-  private _dropoffLocation: string;
+  private _pickupLocation: Address;
+  private _dropoffLocation: Address;
   private _pickupTime: Date;
   private _dropoffTime: Date;
   private _status: ShipmentStatus;
@@ -17,8 +18,8 @@ class ShippingRequest {
     id: ObjectId | null,
     deliveryPersonId: ObjectId | null,
     merchantId: ObjectId | null,
-    pickupLocation: string,
-    dropoffLocation: string,
+    pickupLocation: Address,
+    dropoffLocation: Address,
     pickupTime: Date,
     dropoffTime: Date,
     status: ShipmentStatus = ShipmentStatus.PENDING,
@@ -57,25 +58,19 @@ class ShippingRequest {
     this._merchantId = value;
   }
 
-  get pickupLocation(): string {
+  get pickupLocation(): Address {
     return this._pickupLocation;
   }
 
-  set pickupLocation(value: string) {
-    if (!value || value.trim().length === 0) {
-      throw new Error("Pickup location is required");
-    }
+  set pickupLocation(value: Address) {
     this._pickupLocation = value;
   }
 
-  get dropoffLocation(): string {
+  get dropoffLocation(): Address {
     return this._dropoffLocation;
   }
 
-  set dropoffLocation(value: string) {
-    if (!value || value.trim().length === 0) {
-      throw new Error("Dropoff location is required");
-    }
+  set dropoffLocation(value: Address) {
     this._dropoffLocation = value;
   }
 
