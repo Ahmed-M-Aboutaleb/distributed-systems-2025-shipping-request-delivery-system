@@ -29,7 +29,10 @@ class ShippingService {
     if (deliveryPersonId) {
       shippingDetails.deliveryPersonId = this.toObjectId(deliveryPersonId);
     }
-    if (shippingDetails.deliveryPersonId != deliveryPersonId)
+    if (
+      shippingDetails.deliveryPersonId != null &&
+      shippingDetails.deliveryPersonId != deliveryPersonId
+    )
       throw new GeneralError("Delivery person ID does not match");
     const updated = await this.shippingRepository.update(shippingDetails);
     if (!updated) {
