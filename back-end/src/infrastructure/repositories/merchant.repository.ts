@@ -1,6 +1,7 @@
 import { Collection, Db, ObjectId } from "mongodb";
 import Merchant from "@/domain/entities/merchant.entity";
 import Address from "@domain/value-objects/Address";
+import GeneralError from "@/application/errors/general.error";
 class MerchantRepository {
   private collection: Collection;
   constructor(db: Db) {
@@ -52,9 +53,9 @@ class MerchantRepository {
   }
 
   private mapToEntity(data: any): Merchant {
-    const address = Address.fromDocumant(data.businessAddress);
+    const address = Address.fromDocument(data.businessAddress);
     if (!address) {
-      throw new Error("Invalid address data");
+      throw new GeneralError("Invalid address data");
     }
     return Merchant.fromDocument({
       ...data,

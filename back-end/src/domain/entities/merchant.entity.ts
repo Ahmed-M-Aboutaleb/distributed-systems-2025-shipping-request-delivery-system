@@ -10,7 +10,6 @@ class Merchant {
   private _companyName: string;
   private _phoneNumber: string;
   private _businessAddress: Address;
-  private _isActive: boolean;
   private _createdAt: Date;
   private _updatedAt: Date;
 
@@ -22,7 +21,6 @@ class Merchant {
     companyName: string,
     phoneNumber: string,
     businessAddress: Address,
-    isActive: boolean = true,
     createdAt: Date = new Date(),
     updatedAt: Date = new Date()
   ) {
@@ -40,10 +38,6 @@ class Merchant {
     if (!businessAddress) throw new Error("Business address is required");
     if (!(businessAddress instanceof Address))
       throw new Error("Business address must be an instance of Address");
-    if (typeof isActive !== "boolean")
-      throw new Error("isActive must be a boolean");
-    if (isActive === null || isActive === undefined)
-      throw new Error("isActive is required");
 
     this._name = name;
     this._email = email;
@@ -51,7 +45,6 @@ class Merchant {
     this._companyName = companyName;
     this._phoneNumber = phoneNumber;
     this._businessAddress = businessAddress;
-    this._isActive = isActive;
     this._createdAt = createdAt;
     this._updatedAt = updatedAt;
   }
@@ -68,14 +61,14 @@ class Merchant {
   get companyName(): string {
     return this._companyName;
   }
+  get passwordHash(): string {
+    return this._passwordHash;
+  }
   get phoneNumber(): string {
     return this._phoneNumber;
   }
   get businessAddress(): Address {
     return this._businessAddress;
-  }
-  get isActive(): boolean {
-    return this._isActive;
   }
   get createdAt(): Date {
     return this._createdAt;
@@ -123,20 +116,6 @@ class Merchant {
     this._businessAddress = businessAddress;
     this._updatedAt = new Date();
   }
-  deactivate(): void {
-    this._isActive = false;
-    this._updatedAt = new Date();
-  }
-  activate(): void {
-    this._isActive = true;
-    this._updatedAt = new Date();
-  }
-  validatePassword(plainPassword: string): boolean {
-    if (!plainPassword || plainPassword.trim().length === 0)
-      throw new Error("Password is required");
-    // TODO: Implement password hashing and comparison logic
-    return this._passwordHash === plainPassword;
-  }
   toJSON(): IMerchant {
     return {
       _id: this._id,
@@ -146,7 +125,6 @@ class Merchant {
       passwordHash: this._passwordHash,
       phoneNumber: this._phoneNumber,
       businessAddress: this._businessAddress.toJSON(),
-      isActive: this._isActive,
       createdAt: this._createdAt,
       updatedAt: this._updatedAt,
     };
@@ -161,7 +139,6 @@ class Merchant {
       document.companyName,
       document.phoneNumber,
       document.businessAddress,
-      document.isActive,
       document.createdAt,
       document.updatedAt
     );

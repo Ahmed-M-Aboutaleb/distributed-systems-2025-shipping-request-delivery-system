@@ -5,8 +5,8 @@ import PackageDetails from "../value-objects/PackageDetails";
 
 class ShippingRequest {
   private readonly _id: ObjectId;
-  private _deliveryPersonId: ObjectId | null;
-  private _merchantId: ObjectId | null;
+  private _deliveryPersonId: ObjectId;
+  private _merchantId: ObjectId;
   private _pickupLocation: Address;
   private _dropoffLocation: Address;
   private _pickupTime: Date;
@@ -18,8 +18,8 @@ class ShippingRequest {
 
   constructor(
     id: ObjectId | null,
-    deliveryPersonId: ObjectId | null,
-    merchantId: ObjectId | null,
+    deliveryPersonId: ObjectId,
+    merchantId: ObjectId,
     pickupLocation: Address,
     dropoffLocation: Address,
     pickupTime: Date,
@@ -46,19 +46,19 @@ class ShippingRequest {
     return this._id;
   }
 
-  get deliveryPersonId(): ObjectId | null {
+  get deliveryPersonId(): ObjectId {
     return this._deliveryPersonId;
   }
 
-  set deliveryPersonId(value: ObjectId | null) {
+  set deliveryPersonId(value: ObjectId) {
     this._deliveryPersonId = value;
   }
 
-  get merchantId(): ObjectId | null {
+  get merchantId(): ObjectId {
     return this._merchantId;
   }
 
-  set merchantId(value: ObjectId | null) {
+  set merchantId(value: ObjectId) {
     this._merchantId = value;
   }
 
@@ -138,11 +138,11 @@ class ShippingRequest {
 
   toJSON() {
     return {
-      id: this._id,
-      deliveryPersonId: this._deliveryPersonId,
-      merchantId: this._merchantId,
-      pickupLocation: this._pickupLocation,
-      dropoffLocation: this._dropoffLocation,
+      _id: this._id,
+      deliveryPersonId: new ObjectId(this._deliveryPersonId),
+      merchantId: new ObjectId(this._merchantId),
+      pickupLocation: this._pickupLocation.toJSON(),
+      dropoffLocation: this._dropoffLocation.toJSON(),
       pickupTime: this._pickupTime,
       dropoffTime: this._dropoffTime,
       status: this._status,
@@ -154,15 +154,15 @@ class ShippingRequest {
 
   static fromDocument(json: any): ShippingRequest {
     return new ShippingRequest(
-      json.id,
+      json._id,
       json.deliveryPersonId,
       json.merchantId,
-      json.pickupLocation,
-      json.dropoffLocation,
+      Address.fromDocument(json.pickupLocation),
+      Address.fromDocument(json.dropoffLocation),
       new Date(json.pickupTime),
       new Date(json.dropoffTime),
       json.status,
-      PackageDetails.fromJSON(json.packageDetails),
+      PackageDetails.fromDocument(json.packageDetails),
       new Date(json.createdAt),
       new Date(json.updatedAt)
     );

@@ -1,10 +1,10 @@
-import DeliveryPerson from "@/domain/entities/delivery-person.entity";
+import DeliveryPerson from "@domain/entities/delivery-person.entity";
 import { Collection, Db, ObjectId } from "mongodb";
 
 class DeliveryPersonRepository {
   private collection: Collection;
   constructor(db: Db) {
-    this.collection = db.collection("merchants");
+    this.collection = db.collection("deliveryPersons");
   }
 
   async findAll(): Promise<DeliveryPerson[]> {

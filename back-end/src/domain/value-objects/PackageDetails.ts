@@ -35,7 +35,7 @@ class PackageDetails {
     return `Weight: ${this.getFormattedWeight()}, Dimensions: ${this.getFormattedDimensions()}, Fragile: ${this.getFormattedFragile()}`;
   }
 
-  static fromJSON(json: any): PackageDetails {
+  static fromDocument(json: any): PackageDetails {
     if (!json) throw new Error("Invalid JSON data");
     const { weight, dimensions, fragile } = json;
     if (

@@ -9,6 +9,13 @@ function validateDto<T extends object>(dtoClass: ClassConstructor<T>) {
     res: Response,
     next: NextFunction
   ): Promise<void> => {
+    if (!req.body) {
+      res.status(400).json({
+        success: false,
+        message: "Request body is required",
+      });
+      return;
+    }
     const dtoObject = plainToClass(dtoClass, req.body);
     const errors = await validate(dtoObject, {
       whitelist: true,
