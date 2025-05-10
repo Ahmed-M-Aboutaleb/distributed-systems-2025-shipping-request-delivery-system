@@ -137,9 +137,13 @@ class ShippingRequest {
   }
 
   toJSON() {
+    const personID =
+      this._deliveryPersonId != null
+        ? new ObjectId(this._deliveryPersonId)
+        : null;
     return {
       _id: this._id,
-      deliveryPersonId: new ObjectId(this._deliveryPersonId),
+      deliveryPersonId: personID,
       merchantId: new ObjectId(this._merchantId),
       pickupLocation: this._pickupLocation.toJSON(),
       dropoffLocation: this._dropoffLocation.toJSON(),
@@ -153,9 +157,13 @@ class ShippingRequest {
   }
 
   static fromDocument(json: any): ShippingRequest {
+    const deliveryPersonId =
+      json.deliveryPersonId === null || json.deliveryPersonId === undefined
+        ? null
+        : json.deliveryPersonId;
     return new ShippingRequest(
       json._id,
-      json.deliveryPersonId,
+      deliveryPersonId,
       json.merchantId,
       Address.fromDocument(json.pickupLocation),
       Address.fromDocument(json.dropoffLocation),
