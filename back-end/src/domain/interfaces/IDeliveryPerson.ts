@@ -1,16 +1,16 @@
 import { ObjectId } from "mongodb";
-import IAddress from "./IAddress";
+import VehicleType from "../enums/vehicle-type";
 
-interface IMerchant {
+interface IDeliveryPerson {
   _id: ObjectId;
   name: string;
   email: string;
   passwordHash?: string;
-  companyName: string;
   phoneNumber: string;
-  businessAddress: IAddress;
+  vehicleType: VehicleType;
+  vehicleLicensePlate: string;
   createdAt: Date;
   updatedAt: Date;
 }
 
-export default IMerchant;
+export default IDeliveryPerson;

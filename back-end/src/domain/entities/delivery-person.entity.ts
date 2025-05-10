@@ -1,5 +1,6 @@
 import { ObjectId } from "mongodb";
 import VehicleType from "../enums/vehicle-type";
+import IDeliveryPerson from "../interfaces/IDeliveryPerson";
 
 class DeliveryPerson {
   private readonly _id: ObjectId;
@@ -9,7 +10,6 @@ class DeliveryPerson {
   private _phoneNumber: string;
   private _vehicleType: VehicleType;
   private _vehicleLicensePlate: string;
-  private _isActive: boolean;
   private _createdAt: Date;
   private _updatedAt: Date;
 
@@ -21,7 +21,6 @@ class DeliveryPerson {
     phoneNumber: string,
     vehicleType: VehicleType,
     vehicleLicensePlate: string,
-    isActive: boolean = true,
     createdAt: Date = new Date(),
     updatedAt: Date = new Date()
   ) {
@@ -36,12 +35,6 @@ class DeliveryPerson {
     if (!vehicleType) throw new Error("Vehicle type is required");
     if (!vehicleLicensePlate || vehicleLicensePlate.trim().length === 0)
       throw new Error("Vehicle license plate is required");
-    if (typeof isActive !== "boolean")
-      throw new Error("isActive must be a boolean");
-    if (isActive === null || isActive === undefined)
-      throw new Error("isActive is required");
-    if (!(vehicleType in VehicleType))
-      throw new Error("Vehicle type must be a valid VehicleType enum value");
     if (vehicleType === null || vehicleType === undefined)
       throw new Error("Vehicle type is required");
 
@@ -52,7 +45,6 @@ class DeliveryPerson {
     this._phoneNumber = phoneNumber;
     this._vehicleType = vehicleType;
     this._vehicleLicensePlate = vehicleLicensePlate;
-    this._isActive = isActive;
     this._createdAt = createdAt;
     this._updatedAt = updatedAt;
   }
@@ -77,9 +69,6 @@ class DeliveryPerson {
   }
   get vehicleLicensePlate(): string {
     return this._vehicleLicensePlate;
-  }
-  get isActive(): boolean {
-    return this._isActive;
   }
   get createdAt(): Date {
     return this._createdAt;
@@ -130,15 +119,6 @@ class DeliveryPerson {
     this._updatedAt = new Date();
   }
 
-  set isActive(isActive: boolean) {
-    if (typeof isActive !== "boolean")
-      throw new Error("isActive must be a boolean");
-    if (isActive === null || isActive === undefined)
-      throw new Error("isActive is required");
-    this._isActive = isActive;
-    this._updatedAt = new Date();
-  }
-
   set createdAt(createdAt: Date) {
     if (!(createdAt instanceof Date))
       throw new Error("Created at must be a Date");
@@ -151,16 +131,15 @@ class DeliveryPerson {
     this._updatedAt = updatedAt;
   }
 
-  toJSON() {
+  toJSON(): IDeliveryPerson {
     return {
-      id: this._id,
+      _id: this._id,
       name: this._name,
       email: this._email,
       passwordHash: this._passwordHash,
       phoneNumber: this._phoneNumber,
       vehicleType: this._vehicleType,
       vehicleLicensePlate: this._vehicleLicensePlate,
-      isActive: this._isActive,
       createdAt: this._createdAt,
       updatedAt: this._updatedAt,
     };
@@ -175,7 +154,6 @@ class DeliveryPerson {
       doc.phoneNumber,
       doc.vehicleType,
       doc.vehicleLicensePlate,
-      doc.isActive,
       doc.createdAt,
       doc.updatedAt
     );

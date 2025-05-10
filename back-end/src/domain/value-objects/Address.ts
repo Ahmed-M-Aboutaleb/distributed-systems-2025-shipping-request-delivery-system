@@ -91,7 +91,7 @@ class Address {
     };
   }
 
-  static fromDocumant(doc: any): Address {
+  static fromDocument(doc: any): Address {
     return new Address(
       doc.street,
       doc.city,

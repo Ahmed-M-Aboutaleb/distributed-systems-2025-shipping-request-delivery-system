@@ -10,12 +10,19 @@ import { setupMerchantRoutes } from "@interfaces/http/routes/merchant.route";
 
 // Controllers
 import MerchantController from "@interfaces/controllers/merchant.controller";
+import DeliveryPersonController from "@/interfaces/controllers/delivery-person.controller";
+import AuthController from "@/interfaces/controllers/auth.controller";
 
 // Services
 import AuthService from "@application/services/auth.service";
+import ShippingService from "@/application/services/shipping.service";
 
 // Repositories
 import MerchantRepository from "@infrastructure/repositories/merchant.repository";
+import ShippingRequestRepository from "@/infrastructure/repositories/shipping-request.repository";
+import DeliveryPersonRepository from "@/infrastructure/repositories/delivery-person.repository";
+import { setupAuthRoutes } from "./interfaces/http/routes/auth.route";
+import { setupDeliveryPersonRoutes } from "./interfaces/http/routes/delivery-person.route";
 
 // Load environment variables
 dotenv.config();
@@ -38,24 +45,37 @@ async function initializeApp() {
 
     // Initialize repositories
     const merchantRepository = new MerchantRepository(db);
+    const shippingRequestRepository = new ShippingRequestRepository(db);
+    const deliveryPersonRepository = new DeliveryPersonRepository(db);
 
     // Initialize services
-    const authService = new AuthService(merchantRepository);
+    const authService = new AuthService(
+      merchantRepository,
+      deliveryPersonRepository
+    );
+    const shippingService = new ShippingService(shippingRequestRepository);
 
     // Initialize controllers
-    const merchantController = new MerchantController(
-      authService,
-      merchantRepository
+    const merchantController = new MerchantController(shippingService);
+    const deliveryPersonController = new DeliveryPersonController(
+      shippingService
     );
+    const authController = new AuthController(authService);
 
     // Setup routes
-    const apiRouter = express.Router();
+    const authRouter = express.Router();
+    const deliveryPersonRouter = express.Router();
+    const merchantRouter = express.Router();
 
     // Apply merchant routes to the router
-    setupMerchantRoutes(apiRouter, merchantController);
+    setupMerchantRoutes(merchantRouter, merchantController);
+    setupAuthRoutes(authRouter, authController);
+    setupDeliveryPersonRoutes(deliveryPersonRouter, deliveryPersonController);
 
     // Register the router with the app
-    app.use("/api", apiRouter);
+    app.use("/api/v1/auth/", authRouter);
+    app.use("/api/v1/merchants/", merchantRouter);
+    app.use("/api/v1/delivery-persons/", deliveryPersonRouter);
 
     // Base route
     app.get("/", (req, res) => {
