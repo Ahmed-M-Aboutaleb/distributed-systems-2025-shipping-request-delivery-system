@@ -3,8 +3,16 @@
   "version": "1.0.0",
   "description": "A Distributed Shipping Request and Delivery System built for a Distributed Systems and Cloud Computing course project. This system allows merchants to register, log in, and request deliveries by specifying package details (size, weight, address). Delivery personnel can view and update assigned deliveries (statuses include Picked Up and Delivered). Designed using Domain Driven Design principles for clear separation of business logic and infrastructure concerns.",
   "main": "index.js",
+  "_moduleAliases": {
+    "@": "dist",
+    "@domain": "dist/domain",
+    "@infrastructure": "dist/infrastructure",
+    "@application": "dist/application",
+    "@interfaces": "dist/interfaces",
+    "@config": "dist/config"
+  },
   "scripts": {
-    "start": "node -r tsconfig-paths/register dist/index.js",
+    "start": "node ./dist/index.js",
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only src/index.ts",
     "build": "tsc",
     "lint": "eslint 'src/**/*.{ts,tsx,js,jsx}'"
@@ -31,6 +39,7 @@
     "express": "^5.1.0",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
+    "module-alias": "^2.2.3",
     "mongodb": "^6.16.0",
     "reflect-metadata": "^0.2.2"
   },
