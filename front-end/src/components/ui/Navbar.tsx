@@ -55,8 +55,12 @@ function Login() {
 
   function onLogin(values: z.infer<typeof formSchema>) {
     try {
+<<<<<<< HEAD
       const apiBase = process.env.NEXT_PUBLIC_API_URL;
       fetch(`${apiBase}/api/v1/auth/login`, {
+=======
+      fetch("http://localhost:3000/api/v1/auth/login", {
+>>>>>>> 6e7cb247cdc391d7bea679ceaf73f367e1ed6fa6
         method: "POST",
         headers: {
           "Content-Type": "application/json",

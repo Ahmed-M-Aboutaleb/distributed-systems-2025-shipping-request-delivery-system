@@ -24,6 +24,7 @@ function page() {
       router.push("/");
       return;
     }
+<<<<<<< HEAD
     const apiBase = process.env.NEXT_PUBLIC_API_URL;
     fetch(`${apiBase}/api/v1/delivery-persons/my-shipment-requests`, {
       method: "GET",
@@ -32,6 +33,18 @@ function page() {
         Authorization: `Bearer ${accessToken}`,
       },
     }).then((res) => {
+=======
+    fetch(
+      "http://localhost:3000/api/v1/delivery-persons/my-shipment-requests",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    ).then((res) => {
+>>>>>>> 6e7cb247cdc391d7bea679ceaf73f367e1ed6fa6
       if (res.status === 200) {
         res.json().then((data) => {
           setShipments(data);
@@ -45,9 +58,14 @@ function page() {
   }, [currentUser]);
 
   function handleAcceptShipment(shipmentId) {
+<<<<<<< HEAD
     const apiBase = process.env.NEXT_PUBLIC_API_URL;
     fetch(
       `${apiBase}/api/v1/delivery-persons/shipment-requests/${shipmentId}`,
+=======
+    fetch(
+      `http://localhost:3000/api/v1/delivery-persons/shipment-requests/${shipmentId}`,
+>>>>>>> 6e7cb247cdc391d7bea679ceaf73f367e1ed6fa6
       {
         method: "PUT",
         headers: {
