@@ -11,6 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useAppContext } from "@/context/AppContext";
+import { IShipmentRequestResponse } from "@/types/main";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -18,16 +19,13 @@ import { toast } from "sonner";
 
 function page() {
   const { currentUser, accessToken } = useAppContext();
-  const [shipments, setShipments] = useState([]);
+  const [shipments, setShipments] = useState<IShipmentRequestResponse[]>([]);
   const router = useRouter();
   useEffect(() => {
     if (currentUser._id === "-1") {
       router.push("/");
       return;
     }
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
     const apiBase = process.env.NEXT_PUBLIC_API_URL;
     fetch(`${apiBase}/api/v1/delivery-persons/available-shipment-requests`, {
       method: "GET",
@@ -36,22 +34,6 @@ function page() {
         Authorization: `Bearer ${accessToken}`,
       },
     }).then((res) => {
-=======
->>>>>>> Feat/Front
-    fetch(
-      "http://localhost:3000/api/v1/delivery-persons/available-shipment-requests",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    ).then((res) => {
-<<<<<<< HEAD
-=======
->>>>>>> 6e7cb247cdc391d7bea679ceaf73f367e1ed6fa6
->>>>>>> Feat/Front
       if (res.status === 200) {
         res.json().then((data) => {
           setShipments(data);
@@ -64,10 +46,7 @@ function page() {
     });
   }, [currentUser]);
 
-  function handleAcceptShipment(shipmentId) {
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
+  function handleAcceptShipment(shipmentId: string) {
     const apiBase = process.env.NEXT_PUBLIC_API_URL;
     fetch(`${apiBase}/api/v1/delivery-persons/accept-shipment/${shipmentId}`, {
       method: "POST",
@@ -76,22 +55,6 @@ function page() {
         Authorization: `Bearer ${accessToken}`,
       },
     }).then((res) => {
-=======
->>>>>>> Feat/Front
-    fetch(
-      `http://localhost:3000/api/v1/delivery-persons/accept-shipment/${shipmentId}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    ).then((res) => {
-<<<<<<< HEAD
-=======
->>>>>>> 6e7cb247cdc391d7bea679ceaf73f367e1ed6fa6
->>>>>>> Feat/Front
       if (res.status === 200) {
         res.json().then((data) => {
           toast.success("Shipment accepted successfully");

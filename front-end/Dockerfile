@@ -1,36 +1,25 @@
----
+# 1. Use an official Node.js runtime as a parent image
+FROM node:18-alpine
 
-## 7. Dockerizing a Next.js App
+# 2. Set working directory
+WORKDIR /usr/src/app
 
-Below is a simple multi-stage `Dockerfile` and accompanying `docker-compose.yml` (with both production and dev-mode services) for a Next.js project.
+# 3. Install dependencies first (to leverage Docker layer caching)
+COPY package.json package-lock.json* yarn.lock* ./
+RUN \
+  if [ -f yarn.lock ]; then yarn install; \
+  elif [ -f package-lock.json ]; then npm ci; \
+  else echo "No lockfile found, running npm install" && npm install; \
+  fi
 
-### 7.1 Multi-stage `Dockerfile`
-
-```dockerfile
-# Stage 1: Install & build
-FROM node:20-alpine AS builder
-WORKDIR /app
-
-# Install deps
-COPY package*.json ./
-RUN npm ci
-
-# Copy source & build
+# 4. Copy the rest of your application code
 COPY . .
-RUN npm run build
 
-# Stage 2: Production image
-FROM node:20-alpine AS runner
-WORKDIR /app
-
-# Only copy the necessary bits
-ENV NODE_ENV=production
-COPY --from=builder /app/next.config.js ./
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package*.json ./
-
-# Expose port and start
+# 5. Expose Next.js default dev port
 EXPOSE 3000
-CMD ["npm", "run", "start"]
+
+# 6. Set environment variable for development
+ENV NODE_ENV=development
+
+# 7. Start Next.js in development mode
+CMD ["npm", "run", "dev"]

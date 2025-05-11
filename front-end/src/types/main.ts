@@ -43,3 +43,33 @@ export interface AppState {
   accessToken: string;
   setAccessToken: (token: string) => void;
 }
+
+export interface IShipmentRequestResponse {
+  _id: string;
+  pickupLocation: {
+    street: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    country: string;
+  };
+  dropoffLocation: {
+    street: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    country: string;
+  };
+  pickupTime: string;
+  dropoffTime: string;
+  status: string;
+  packageDetails: {
+    weight: number;
+    dimensions: {
+      width: number;
+      length: number;
+      height: number;
+    };
+    fragile: boolean;
+  };
+}
