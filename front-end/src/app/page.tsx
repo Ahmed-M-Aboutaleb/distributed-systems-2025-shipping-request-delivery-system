@@ -60,7 +60,8 @@ function RegisterD() {
 
   function onLogin(values: z.infer<typeof formSchema>) {
     try {
-      fetch("http://localhost:3000/api/v1/auth/register-delivery-person", {
+      const apiBase = process.env.NEXT_PUBLIC_API_URL;
+      fetch(`${apiBase}/api/v1/auth/register-delivery-person`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -289,7 +290,8 @@ function RegisterMerchant() {
 
   function onLogin(values: z.infer<typeof formSchema>) {
     try {
-      fetch("http://localhost:3000/api/v1/auth/register-merchent", {
+      const apiBase = process.env.NEXT_PUBLIC_API_URL;
+      fetch(`${apiBase}/api/v1/auth/register-merchent`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

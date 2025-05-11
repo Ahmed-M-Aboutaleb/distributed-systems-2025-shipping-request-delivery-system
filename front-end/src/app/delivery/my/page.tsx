@@ -24,16 +24,14 @@ function page() {
       router.push("/");
       return;
     }
-    fetch(
-      "http://localhost:3000/api/v1/delivery-persons/my-shipment-requests",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    ).then((res) => {
+    const apiBase = process.env.NEXT_PUBLIC_API_URL;
+    fetch(`${apiBase}/api/v1/delivery-persons/my-shipment-requests`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }).then((res) => {
       if (res.status === 200) {
         res.json().then((data) => {
           setShipments(data);
@@ -47,8 +45,9 @@ function page() {
   }, [currentUser]);
 
   function handleAcceptShipment(shipmentId) {
+    const apiBase = process.env.NEXT_PUBLIC_API_URL;
     fetch(
-      `http://localhost:3000/api/v1/delivery-persons/shipment-requests/${shipmentId}`,
+      `${apiBase}/api/v1/delivery-persons/shipment-requests/${shipmentId}`,
       {
         method: "PUT",
         headers: {

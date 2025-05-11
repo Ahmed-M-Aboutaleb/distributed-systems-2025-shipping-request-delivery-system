@@ -125,7 +125,8 @@ function NewShipment() {
           fragile: values.fragile,
         },
       };
-      fetch("http://localhost:3000/api/v1/merchants/new-shipment", {
+      const apiBase = process.env.NEXT_PUBLIC_API_URL;
+      fetch(`${apiBase}/api/v1/merchants/new-shipment`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -476,7 +477,8 @@ export default function Merchant() {
       router.push("/");
       return;
     }
-    fetch("http://localhost:3000/api/v1/merchants/shipment-requests", {
+    const apiBase = process.env.NEXT_PUBLIC_API_URL;
+    fetch(`${apiBase}/api/v1/merchants/shipment-requests`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

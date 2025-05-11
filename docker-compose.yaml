@@ -21,6 +21,22 @@ services:
       - mongo
     networks:
       - app-network
+  frontend:
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    depends_on:
+      - api
+    networks:
+      - app-network
+    command: npm run dev
+    volumes:
+      - ./front-end:/app
+      - /app/node_modules
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:3000
 
 volumes:
   db:
