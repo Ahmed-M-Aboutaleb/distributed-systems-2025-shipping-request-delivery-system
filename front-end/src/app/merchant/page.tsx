@@ -125,7 +125,16 @@ function NewShipment() {
           fragile: values.fragile,
         },
       };
+<<<<<<< HEAD
       fetch("http://localhost:3000/api/v1/merchants/new-shipment", {
+=======
+<<<<<<< HEAD
+      const apiBase = process.env.NEXT_PUBLIC_API_URL;
+      fetch(`${apiBase}/api/v1/merchants/new-shipment`, {
+=======
+      fetch("http://localhost:3000/api/v1/merchants/new-shipment", {
+>>>>>>> 6e7cb247cdc391d7bea679ceaf73f367e1ed6fa6
+>>>>>>> Feat/Front
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -476,7 +485,16 @@ export default function Merchant() {
       router.push("/");
       return;
     }
+<<<<<<< HEAD
     fetch("http://localhost:3000/api/v1/merchants/shipment-requests", {
+=======
+<<<<<<< HEAD
+    const apiBase = process.env.NEXT_PUBLIC_API_URL;
+    fetch(`${apiBase}/api/v1/merchants/shipment-requests`, {
+=======
+    fetch("http://localhost:3000/api/v1/merchants/shipment-requests", {
+>>>>>>> 6e7cb247cdc391d7bea679ceaf73f367e1ed6fa6
+>>>>>>> Feat/Front
       method: "GET",
       headers: {
         "Content-Type": "application/json",

@@ -60,7 +60,16 @@ function RegisterD() {
 
   function onLogin(values: z.infer<typeof formSchema>) {
     try {
+<<<<<<< HEAD
       fetch("http://localhost:3000/api/v1/auth/register-delivery-person", {
+=======
+<<<<<<< HEAD
+      const apiBase = process.env.NEXT_PUBLIC_API_URL;
+      fetch(`${apiBase}/api/v1/auth/register-delivery-person`, {
+=======
+      fetch("http://localhost:3000/api/v1/auth/register-delivery-person", {
+>>>>>>> 6e7cb247cdc391d7bea679ceaf73f367e1ed6fa6
+>>>>>>> Feat/Front
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -289,7 +298,16 @@ function RegisterMerchant() {
 
   function onLogin(values: z.infer<typeof formSchema>) {
     try {
+<<<<<<< HEAD
       fetch("http://localhost:3000/api/v1/auth/register-merchent", {
+=======
+<<<<<<< HEAD
+      const apiBase = process.env.NEXT_PUBLIC_API_URL;
+      fetch(`${apiBase}/api/v1/auth/register-merchent`, {
+=======
+      fetch("http://localhost:3000/api/v1/auth/register-merchent", {
+>>>>>>> 6e7cb247cdc391d7bea679ceaf73f367e1ed6fa6
+>>>>>>> Feat/Front
         method: "POST",
         headers: {
           "Content-Type": "application/json",

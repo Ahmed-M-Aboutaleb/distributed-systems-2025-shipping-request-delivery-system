@@ -3,15 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-<<<<<<< HEAD
     "dev": "next dev --turbopack",
-=======
-<<<<<<< HEAD
-    "dev": "next dev --turbopack --port 3001",
-=======
-    "dev": "next dev --turbopack",
->>>>>>> 6e7cb247cdc391d7bea679ceaf73f367e1ed6fa6
->>>>>>> Feat/Front
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

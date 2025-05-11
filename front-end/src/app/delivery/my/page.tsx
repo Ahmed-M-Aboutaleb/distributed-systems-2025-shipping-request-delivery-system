@@ -24,6 +24,19 @@ function page() {
       router.push("/");
       return;
     }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    const apiBase = process.env.NEXT_PUBLIC_API_URL;
+    fetch(`${apiBase}/api/v1/delivery-persons/my-shipment-requests`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }).then((res) => {
+=======
+>>>>>>> Feat/Front
     fetch(
       "http://localhost:3000/api/v1/delivery-persons/my-shipment-requests",
       {
@@ -34,6 +47,10 @@ function page() {
         },
       }
     ).then((res) => {
+<<<<<<< HEAD
+=======
+>>>>>>> 6e7cb247cdc391d7bea679ceaf73f367e1ed6fa6
+>>>>>>> Feat/Front
       if (res.status === 200) {
         res.json().then((data) => {
           setShipments(data);
@@ -47,8 +64,19 @@ function page() {
   }, [currentUser]);
 
   function handleAcceptShipment(shipmentId) {
+<<<<<<< HEAD
     fetch(
       `http://localhost:3000/api/v1/delivery-persons/shipment-requests/${shipmentId}`,
+=======
+<<<<<<< HEAD
+    const apiBase = process.env.NEXT_PUBLIC_API_URL;
+    fetch(
+      `${apiBase}/api/v1/delivery-persons/shipment-requests/${shipmentId}`,
+=======
+    fetch(
+      `http://localhost:3000/api/v1/delivery-persons/shipment-requests/${shipmentId}`,
+>>>>>>> 6e7cb247cdc391d7bea679ceaf73f367e1ed6fa6
+>>>>>>> Feat/Front
       {
         method: "PUT",
         headers: {
