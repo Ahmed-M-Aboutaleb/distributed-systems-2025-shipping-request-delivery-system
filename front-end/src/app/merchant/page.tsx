@@ -38,6 +38,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { toast } from "sonner";
+import { IShipmentRequestResponse } from "@/types/main";
 
 function NewShipment() {
   const [open, setOpen] = useState(false);
@@ -125,16 +126,8 @@ function NewShipment() {
           fragile: values.fragile,
         },
       };
-<<<<<<< HEAD
-      fetch("http://localhost:3000/api/v1/merchants/new-shipment", {
-=======
-<<<<<<< HEAD
       const apiBase = process.env.NEXT_PUBLIC_API_URL;
       fetch(`${apiBase}/api/v1/merchants/new-shipment`, {
-=======
-      fetch("http://localhost:3000/api/v1/merchants/new-shipment", {
->>>>>>> 6e7cb247cdc391d7bea679ceaf73f367e1ed6fa6
->>>>>>> Feat/Front
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -478,23 +471,15 @@ function NewShipment() {
 
 export default function Merchant() {
   const { currentUser, accessToken } = useAppContext();
-  const [shipments, setShipments] = useState([]);
+  const [shipments, setShipments] = useState<IShipmentRequestResponse[]>([]);
   const router = useRouter();
   useEffect(() => {
     if (currentUser._id === "-1") {
       router.push("/");
       return;
     }
-<<<<<<< HEAD
-    fetch("http://localhost:3000/api/v1/merchants/shipment-requests", {
-=======
-<<<<<<< HEAD
     const apiBase = process.env.NEXT_PUBLIC_API_URL;
     fetch(`${apiBase}/api/v1/merchants/shipment-requests`, {
-=======
-    fetch("http://localhost:3000/api/v1/merchants/shipment-requests", {
->>>>>>> 6e7cb247cdc391d7bea679ceaf73f367e1ed6fa6
->>>>>>> Feat/Front
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -546,7 +531,7 @@ export default function Merchant() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {shipments.map((shipment) => (
+            {shipments.map((shipment: IShipmentRequestResponse) => (
               <TableRow key={shipment._id}>
                 <TableCell>{shipment.pickupLocation.street}</TableCell>
                 <TableCell>{shipment.pickupLocation.city}</TableCell>
